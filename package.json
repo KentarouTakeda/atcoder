@@ -1,0 +1,17 @@
+{
+  "name": "atcoder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "KentarouTakeda <takeda@youmind.jp> (https://github.com/KentarouTakeda)",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^11.11.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.3.3333"
+  }
+}
