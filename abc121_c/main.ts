@@ -1,19 +1,24 @@
 import fs = require('fs');
-if(process.argv[1].match(/Main.js$/)) { console.log(main(fs.readFileSync('/dev/stdin', 'utf8').split(/[\r\n\t ]/))); }
+if(process.argv[1].match(/Main.js$/)) { console.log(main(fs.readFileSync('/dev/stdin', 'utf8').trim().split(/[\r\n\t ]+/))); }
 
 export function main(strings: string[]): string {
 	const ret: any[] = [];
 	const numbers = strings.map(Number);
 
-	const N = numbers.shift()||0;
-	const M = numbers.shift()||0;
+	numbers.shift();
+	const M = numbers.shift() as number;
 
 	const shops: [number, number][] = [];
-	for(let i=0; i<N; i++) {
+
+	for(let i=0; i<=numbers.length;) {
+		if(numbers[i] == null || numbers[i+1] == null) {
+			break;
+		}
 		shops.push([
-			numbers.shift()||0,
-			numbers.shift()||0,
+			numbers[i],
+			numbers[i+1],
 		]);
+		i += 2;
 	}
 
 	shops.sort((a, b) => a[0] - b[0]);
@@ -32,8 +37,4 @@ export function main(strings: string[]): string {
 
 	ret.push(sum)
 	return ret.join('\n') + '\n';
-}
-
-function numberSort(a: number, b: number): number {
-	return a-b;
 }
