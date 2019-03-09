@@ -6,7 +6,7 @@ export function main(strings: string[]): string {
 	const numbers = strings.map(Number);
 
 	const [A, B] = numbers;
-	const answer = f(A-1) ^ f(B);
+	const answer = xor ( f(A-1), f(B) );
 
 	ret.push(answer);
 	return ret.join('\n') + '\n';
@@ -23,5 +23,17 @@ function f(n: number): number {
 	case 3:
 		return 0;
 	}
-	throw new Error();
+	return 0;
+}
+
+function xor(a: number, b:number): number {
+	const _a = Array.from(a.toString(2)).reverse().map(s => parseInt(s));
+	const _b = Array.from(b.toString(2)).reverse().map(s => parseInt(s));
+
+	let _bits: number[] = [];
+	for(let i=0; i<Math.max(_a.length, _b.length); i++) {
+		_bits.unshift( ((_a[i]||0) + (_b[i]||0)) === 1 ? 1 : 0  )
+	}
+
+	return parseInt(_bits.join(''), 2);
 }
