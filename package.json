@@ -10,7 +10,9 @@
   "author": "KentarouTakeda <takeda@youmind.jp> (https://github.com/KentarouTakeda)",
   "license": "MIT",
   "dependencies": {
+    "@types/jsdom": "^12.2.3",
     "@types/node": "^11.11.0",
+    "jsdom": "^14.0.0",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.3.3333"
   }
