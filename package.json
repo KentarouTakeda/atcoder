@@ -17,6 +17,7 @@
     "commander": "^2.19.0",
     "fs-extra": "^7.0.1",
     "jsdom": "^14.0.0",
+    "simple-git": "^1.107.0",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.3.3333"
   }

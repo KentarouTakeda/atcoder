@@ -3,6 +3,7 @@ import { JSDOM } from 'jsdom';
 import URL = require('url');
 import path = require('path');
 import fse = require('fs-extra');
+const SimpleGit = require('simple-git');
 
 program
 	.usage('<url>')
@@ -51,4 +52,16 @@ const dom = JSDOM.fromURL(url).then(dom => {
 
 	fse.copySync(__dirname + '/../_template', __dirname + '/../' + name);
 	fse.writeFileSync(__dirname + '/../' + name + '/answers.txt', answers);
+	const git = SimpleGit(__dirname + '/../');
+	git.add(__dirname + '/../' + name, (err: any) => {
+		if(err) {
+			throw new Error(err);
+		}
+		git.commit(url, (err: any, summary: any) => {
+			if(err) {
+				throw new Error(err);
+			}
+			console.log(`${url} ${summary.commit}`);
+		});
+	});
 })
