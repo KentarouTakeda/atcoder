@@ -50,4 +50,5 @@ const dom = JSDOM.fromURL(url).then(dom => {
 	const answers = texts.join('\n---\n') + '\n';
 
 	fse.copySync(__dirname + '/../_template', __dirname + '/../' + name);
+	fse.writeFileSync(__dirname + '/../' + name + '/answers.txt', answers);
 })
