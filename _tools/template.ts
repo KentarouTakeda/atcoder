@@ -22,6 +22,17 @@ if(url == null) {
 	throw new Error();
 }
 
+const parseUrl = URL.parse(url);
+if(parseUrl.pathname == null) {
+	throw new Error();
+}
+const name = path.basename(parseUrl.pathname);
+if(fse.existsSync(__dirname + '/../' + name)) {
+	console.error(`Directory ${name} already exists.`);
+	process.exit(1);
+	throw new Error();
+}
+
 const dom = JSDOM.fromURL(url).then(dom => {
 	const document = dom.window.document;
 	const lang = document.getElementsByClassName('lang-ja');
@@ -37,12 +48,6 @@ const dom = JSDOM.fromURL(url).then(dom => {
 
 	const texts = Array.from(pres).slice(1).map(e => e.innerHTML.trim());
 	const answers = texts.join('\n---\n') + '\n';
-
-	const parseUrl = URL.parse(url);
-	if(parseUrl.pathname == null) {
-		throw new Error();
-	}
-	const name = path.basename(parseUrl.pathname);
 
 	fse.copySync(__dirname + '/../_template', __dirname + '/../' + name);
 })
