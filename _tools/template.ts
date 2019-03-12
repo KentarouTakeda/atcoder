@@ -1,8 +1,26 @@
+import program = require('commander');
 import { JSDOM } from 'jsdom';
 import URL = require('url');
 import path = require('path');
+import fse = require('fs-extra');
 
-const url = 'https://atcoder.jp/contests/agc030/tasks/agc030_a';
+program
+	.usage('<url>')
+	.parse(process.argv)
+;
+
+if(program.args.length !== 1) {
+	program.outputHelp();
+	process.exit(1);
+	throw new Error();
+}
+
+const url = program.args[0];
+if(url == null) {
+	program.outputHelp();
+	process.exit(1);
+	throw new Error();
+}
 
 const dom = JSDOM.fromURL(url).then(dom => {
 	const document = dom.window.document;
@@ -26,6 +44,5 @@ const dom = JSDOM.fromURL(url).then(dom => {
 	}
 	const name = path.basename(parseUrl.pathname);
 
-	console.log(answers);
-	console.log(name);
+	fse.copySync(__dirname + '/../_template', __dirname + '/../' + name);
 })
